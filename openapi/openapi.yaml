@@ -1,0 +1,39 @@
+openapi: 3.1.0
+info:
+  version: 1.0.0
+  title: ShopAgain API
+  termsOfService: 'https://www.shopagain.io/terms-of-service'
+  contact:
+    email: support@shopagain.io
+    url: 'https://www.shopagain.io/'
+  x-logo:
+    url: 'https://d3scu3ol8c909k.cloudfront.net/assets/images/8c76b40d-2c27-4bca-b0c4-b78b71a2eb30/45008215-b5d4-4e4e-a718-0ad4e8d31114.png'
+  description:
+    $ref: ./info-description.md
+
+# tags:
+#   - name: Customers
+#     description: Company setup on ShopAgain
+#   - name: User
+#     description: Operations about users.
+#   - name: Tag
+#     description: This is a tag description.
+
+servers:
+  - url: 'https://api.shopagain.io'
+    description: Production API
+  - url: 'https://prod-webhooks.latticeai.io'
+    description: Production Webhooks
+    
+paths:
+  '/v1/company/':
+    $ref: 'paths/company.yaml'
+
+components:
+  securitySchemes:
+    api_key:
+      type: apiKey
+      in: header
+      name: api_key
+
+    

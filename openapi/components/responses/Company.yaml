@@ -1,0 +1,5 @@
+description: Company
+content:
+  application/json:
+    schema:
+      $ref: ../schemas/Company.yaml

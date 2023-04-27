@@ -1,0 +1,19 @@
+type: object
+title: Error
+properties:
+  type:
+    description: Type of Error
+    type: string
+    examples:
+      - ValidationError
+  detail:
+    description: Details of error
+    type: object
+    examples:
+      - {"website_url":["This store already exists."]}
+  fallback_message:
+    description: Default Error Message
+    type: string
+    examples:
+      - "website_url: This store already exists"
+  

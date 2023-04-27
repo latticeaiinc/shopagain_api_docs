@@ -1,0 +1,82 @@
+type: object
+title: Company
+properties:
+  name:
+    description: Name of Company
+    type: string
+    examples:
+      - My aweseme store
+  website_url:
+    description: URL of the store
+    type: string
+    examples:
+      - https://myawesomestore.com
+  address1:
+    description: Address1
+    type: string
+    examples:
+      - 10 Awesome St
+  address2:
+    description: Address2
+    type: string
+    examples:
+      - #123
+  city:
+    description: City
+    type: string
+    examples:
+      - Durham
+  province:
+    description: City
+    type: string
+    examples:
+      - NC
+  country:
+    description: Country
+    type: string
+    examples:
+      - United States
+  country_code:
+    description: ISO-3166 ALPHA-2 country code
+    type: string
+    examples:
+      - US
+  email:
+    description: Company contact email
+    type: string
+    examples:
+      - info@myawesomestore.com
+  phone:
+    description: Company phone number
+    type: string
+    examples:
+      - "+19998887777"
+  currency:
+    description: Three letter currency code
+    type: string
+    examples:
+      - USD
+  timezone:
+    description: pytz support timezone
+    type: string
+    examples:
+      - US/Eastern
+  api_key:
+    description: api key to fetch store data, create discount codes etc
+    type: string
+    examples:
+      - secret_api_key
+
+required:
+  - name
+  - website_url
+  - address1
+  - city
+  - state
+  - country
+  - country_code
+  - email
+  - currency
+  - timezone
+  - api_key
+

@@ -12,7 +12,7 @@ post:
       content:
         application/json:
           schema:
-            $ref: '../schemas/Company.yaml'
+            $ref: '../components/schemas/Company.yaml'
           examples:
             response:
               value: {"id":"c00118c0-xxxx-yyyy-86f8-f963785818f1","name":"My awesome store","website_url":"https://myawesomestore.com","email":"info@myawesomestore.com","address1":"10 Awesome St","country":"United States","country_code":"US","city":"Durham","province":"NC","currency":"USD","timezone":"US/Eastern","created_at":"2023-04-27T00:40:09.338114Z","address2":null,"phone":"+19998887777","zip":null,"logo":null,"public_api_key":"aaaa_aaaa","api_key":"xxxx-yyyy"}
@@ -21,7 +21,7 @@ post:
       content:
         application/json:
           schema:
-            $ref: '../schemas/DefaultError.yaml'
+            $ref: '../components/schemas/DefaultError.yaml'
           examples:
             response:
               value: {"type":"ValidationError","detail":{"website_url":["This store already exists."]},"fallback_message":"website_url: This store already exists"}

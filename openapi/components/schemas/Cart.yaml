@@ -1,0 +1,43 @@
+type: object
+title: Cart
+properties:
+  cart_token:
+    description: Token or identifier for a cart
+    type: string
+    examples:
+      - "123"
+  external_customer_id:
+    description: Customer id at store associated with cart
+    type: string
+    examples:
+      - John
+  external_product_ids:
+    description: List of store product ids added to the cart
+    type: array
+    items:
+      type: string
+    examples:
+      - ["1234"]
+  line_items:
+    description: Items in the cart. Contains details of product, variant and quantity
+    type: array
+    items:
+      type: object
+    examples:
+      - [{"sku":"","title":"Product1","price":3.50,"quantity":1,"product_id":"1234","variant_id":"5678","total_discount":0.0}]
+  created_at:
+    description: The date and time (ISO 8601 format) when the cart was created.
+    type: string
+    examples:
+      - "2022-06-27T08:48:27-04:00"
+  updated_at:
+    description: The date and time (ISO 8601 format) when the cart was updated.
+    type: string
+    examples:
+      - "2022-06-27T08:48:27-04:00"
+
+required:
+  - external_id
+  - created_at
+  - updated_at
+

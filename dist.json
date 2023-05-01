@@ -1,0 +1,1956 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "ShopAgain API",
+    "termsOfService": "https://www.shopagain.io/terms-of-service",
+    "contact": {
+      "email": "support@shopagain.io",
+      "url": "https://www.shopagain.io/"
+    },
+    "x-logo": {
+      "url": "https://d3scu3ol8c909k.cloudfront.net/assets/images/8c76b40d-2c27-4bca-b0c4-b78b71a2eb30/45008215-b5d4-4e4e-a718-0ad4e8d31114.png"
+    },
+    "description": "# Introduction\n\nThis API is used for interacting with ShopAgain by third party apps. For authentication you need an `API Key` which can be obtained from the company.\n\n# Authentication\n\npass\n\n# Webhooks\n"
+  },
+  "tags": [
+    {
+      "name": "Company",
+      "description": "Company setup on ShopAgain"
+    },
+    {
+      "name": "Contact",
+      "description": "Create contact at ShopAgain"
+    },
+    {
+      "name": "Product",
+      "description": "Products play a very important role at ShopAgain. We use them for recommeding new products in Email and SMS Campaigns and even in the widgets,"
+    }
+  ],
+  "servers": [
+    {
+      "url": "https://api.shopagain.io",
+      "description": "Production API"
+    }
+  ],
+  "paths": {
+    "/v1/company": {
+      "post": {
+        "tags": [
+          "Company"
+        ],
+        "summary": "Provisioning a new company",
+        "description": "Only partners are allowed to programmatically create a new company.",
+        "operationId": "company",
+        "security": [
+          {
+            "api_key": []
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Product"
+                },
+                "examples": {
+                  "response": {
+                    "value": {
+                      "id": "c00118c0-xxxx-yyyy-86f8-f963785818f1",
+                      "name": "My awesome store",
+                      "website_url": "https://myawesomestore.com",
+                      "email": "info@myawesomestore.com",
+                      "address1": "10 Awesome St",
+                      "country": "United States",
+                      "country_code": "US",
+                      "city": "Durham",
+                      "province": "NC",
+                      "currency": "USD",
+                      "timezone": "US/Eastern",
+                      "created_at": "2023-04-27T00:40:09.338114Z",
+                      "address2": null,
+                      "phone": "+19998887777",
+                      "zip": null,
+                      "logo": null,
+                      "public_api_key": "aaaa_aaaa",
+                      "api_key": "xxxx-yyyy"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DefaultError"
+                },
+                "examples": {
+                  "response": {
+                    "value": {
+                      "type": "ValidationError",
+                      "detail": {
+                        "website_url": [
+                          "This store already exists."
+                        ]
+                      },
+                      "fallback_message": "website_url: This store already exists"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "429": {
+            "description": "Rate Limit Exceeded"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Company"
+              }
+            }
+          },
+          "description": "Company Payload",
+          "required": true
+        }
+      }
+    },
+    "/v1/contacts": {
+      "post": {
+        "tags": [
+          "Contact"
+        ],
+        "summary": "Create Contact",
+        "description": "Use this endpoint to create a contact at ShopAgain.",
+        "operationId": "contact",
+        "security": [
+          {
+            "api_key": []
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Contact"
+                },
+                "examples": {
+                  "response": {
+                    "value": {
+                      "id": "257f28c6-c302-417f-8d94-290fa02c4a7e",
+                      "external_id": "123",
+                      "first_name": "John",
+                      "last_name": "Doe",
+                      "email": "jdoe@somedomain.com",
+                      "phone_number": "+19998887777",
+                      "address_line1": "10 Some St.",
+                      "address_line2": "#234",
+                      "city": "Miami",
+                      "state": "FL",
+                      "country": "United State",
+                      "country_code": "US",
+                      "zip_code": "22776",
+                      "email_subscription_status": "subscribed",
+                      "email_subscription_date": "2022-06-27T12:48:27Z",
+                      "sms_subscription_status": "subscribed",
+                      "sms_unsubscription_date": null,
+                      "marketing_opt_in_level": "single_opt_in",
+                      "sms_opt_in_level": "single_opt_in",
+                      "created_at": "2022-06-27T12:48:27Z",
+                      "updated_at": "2022-06-27T12:48:27Z"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DefaultError"
+                },
+                "examples": {
+                  "response": {
+                    "value": {
+                      "type": "ValidationError",
+                      "detail": {
+                        "external_id": [
+                          "external_id is required"
+                        ]
+                      },
+                      "fallback_message": "external_id:  is required"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "429": {
+            "description": "Rate Limit Exceeded"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Contact"
+              }
+            }
+          },
+          "description": "Coontact Payload",
+          "required": true
+        }
+      }
+    },
+    "/v1/products": {
+      "post": {
+        "tags": [
+          "Product"
+        ],
+        "summary": "Create Product",
+        "description": "Use this endpoint to create a product at ShopAgain.",
+        "operationId": "product",
+        "security": [
+          {
+            "api_key": []
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Company"
+                },
+                "examples": {
+                  "response": {
+                    "value": {
+                      "id": "8fb7ed17-b176-474b-9e18-b539ca8bf4c4",
+                      "external_product_id": "123",
+                      "name": "Shoe 1",
+                      "description": "A great pair of black sneakers suitable for every day use",
+                      "description_html": "A great pair of <b>black sneakers</b> suitable for every day use",
+                      "handle": "shoe-1",
+                      "vendor": "Great Sneaker Company",
+                      "price": 32,
+                      "currency": "USD",
+                      "url": "https://myawesomestore.com/products/shoe-1",
+                      "image_urls": [
+                        "https://somecdn.com/image/image1.jpg"
+                      ],
+                      "video_urls": [
+                        "https://somecdn.com/image/video1.mp4"
+                      ],
+                      "variants": [
+                        {
+                          "id": "45033930391856",
+                          "sku": "1234",
+                          "grams": 0,
+                          "price": 32,
+                          "title": "S",
+                          "weight": 0,
+                          "barcode": "",
+                          "option1": "S",
+                          "option2": null,
+                          "option3": null,
+                          "taxable": true,
+                          "image_id": null,
+                          "position": 1,
+                          "created_at": "2023-04-30T19:39:04-04:00",
+                          "product_id": "8311391813936",
+                          "updated_at": "2023-04-30T19:39:04-04:00",
+                          "weight_unit": "lb",
+                          "compare_at_price": null,
+                          "inventory_policy": "deny",
+                          "inventory_item_id": "47085312868656",
+                          "requires_shipping": true,
+                          "inventory_quantity": 0,
+                          "fulfillment_service": "manual",
+                          "inventory_management": null,
+                          "old_inventory_quantity": 0
+                        }
+                      ],
+                      "status": "active",
+                      "sku": [
+                        "1234"
+                      ],
+                      "tags": [
+                        "shoe",
+                        "black"
+                      ],
+                      "created_at": "2022-06-27T12:48:27Z",
+                      "updated_at": "2022-06-27T12:48:27Z"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DefaultError"
+                },
+                "examples": {
+                  "response": {
+                    "value": {
+                      "type": "ValidationError",
+                      "detail": {
+                        "external_product_id": [
+                          "external_product_id is required"
+                        ]
+                      },
+                      "fallback_message": "external_product_id:  is required"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "429": {
+            "description": "Rate Limit Exceeded"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Product"
+              }
+            }
+          },
+          "description": "Company Payload",
+          "required": true
+        }
+      }
+    },
+    "/v1/collections": {
+      "post": {
+        "tags": [
+          "Product Collection"
+        ],
+        "summary": "Create Product Collection",
+        "description": "Use this endpoint to create a product collection at ShopAgain.",
+        "operationId": "product_collection",
+        "security": [
+          {
+            "api_key": []
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProductCollection"
+                },
+                "examples": {
+                  "response": {
+                    "value": {
+                      "id": "e712f582-3678-4dc5-848a-fa65b62d6034",
+                      "external_collection_id": "123",
+                      "external_product_ids": [
+                        "1234"
+                      ],
+                      "title": "Shoes",
+                      "description": "A great collection of shoes",
+                      "handle": "shoes",
+                      "collection_type": "custom",
+                      "sort_order": null,
+                      "image_url": "https://somecdn.com/image/image1.jpg",
+                      "updated_at": "2022-06-27T12:48:27Z",
+                      "published_at": "2022-06-27T12:48:27Z"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DefaultError"
+                },
+                "examples": {
+                  "response": {
+                    "value": {
+                      "type": "ValidationError",
+                      "detail": {
+                        "external_collection_id": [
+                          "external_collection_id is required"
+                        ]
+                      },
+                      "fallback_message": "external_collection_id:  is required"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "429": {
+            "description": "Rate Limit Exceeded"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProductCollection"
+              }
+            }
+          },
+          "description": "Company Payload",
+          "required": true
+        }
+      }
+    },
+    "/v1/carts": {
+      "post": {
+        "tags": [
+          "Cart"
+        ],
+        "summary": "Create Cart",
+        "description": "Use this endpoint to create a cart at ShopAgain.",
+        "operationId": "contact",
+        "security": [
+          {
+            "api_key": []
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Cart"
+                },
+                "examples": {
+                  "response": {
+                    "value": {
+                      "id": "5e8255a3-7557-4400-8d24-ce6b2cd92ffd",
+                      "cart_token": "123",
+                      "external_customer_id": "John",
+                      "external_product_ids": [
+                        "1234"
+                      ],
+                      "line_items": [
+                        {
+                          "sku": "",
+                          "title": "Product1",
+                          "price": 3.5,
+                          "quantity": 1,
+                          "product_id": "1234",
+                          "variant_id": "5678",
+                          "total_discount": 0
+                        }
+                      ],
+                      "created_at": "2022-06-27T12:48:27Z",
+                      "updated_at": "2022-06-27T12:48:27Z"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DefaultError"
+                },
+                "examples": {
+                  "response": {
+                    "value": {
+                      "type": "ValidationError",
+                      "detail": {
+                        "cart_token": [
+                          "cart_token is required"
+                        ]
+                      },
+                      "fallback_message": "cart_token:  is required"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "429": {
+            "description": "Rate Limit Exceeded"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Cart"
+              }
+            }
+          },
+          "description": "Cart Payload",
+          "required": true
+        }
+      }
+    },
+    "/v1/checkouts": {
+      "post": {
+        "tags": [
+          "Checkout"
+        ],
+        "summary": "Create Checkout",
+        "description": "Use this endpoint to create a cart at ShopAgain.",
+        "operationId": "contact",
+        "security": [
+          {
+            "api_key": []
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Checkout"
+                },
+                "examples": {
+                  "response": {
+                    "value": {
+                      "id": "74c08fac-1e18-4a75-ba40-b21716ca69ba",
+                      "external_checkout_id": "6756",
+                      "checkout_token": "123",
+                      "cart_token": "123",
+                      "external_customer_id": "John",
+                      "external_product_ids": [
+                        "1234"
+                      ],
+                      "item_count": 1,
+                      "total_price": 100,
+                      "shipping_cost": null,
+                      "total_tax": 10,
+                      "total_weight": 20,
+                      "total_discounts": 10,
+                      "currency": "USD",
+                      "is_discounted": true,
+                      "discount_codes": [
+                        "10OFF"
+                      ],
+                      "abandoned_checkout_url": "https://myawesomestore.com/checkouts/1234",
+                      "channel": "web",
+                      "tags": [
+                        "purchase"
+                      ],
+                      "created_at": "2022-06-27T12:48:27Z",
+                      "updated_at": "2022-06-27T12:48:27Z",
+                      "completed_at": "2022-06-27T12:48:27Z",
+                      "closed_at": "2022-06-27T12:48:27Z",
+                      "extra_fields": {
+                        "line_items": [
+                          {
+                            "sku": "",
+                            "title": "Product1",
+                            "price": 3.5,
+                            "quantity": 1,
+                            "product_id": "1234",
+                            "variant_id": "5678",
+                            "total_discount": 0
+                          }
+                        ],
+                        "client_details": {
+                          "browser_ip": "174.192.64.64",
+                          "user_agent": "Mozilla/5.0 (Linux; Android 13; SM-S908U Build/TP1A.220624.014; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/108.0.5359.128 Mobile Safari/537.36 Instagram 264.0.0.22.106 Android (33/13; 450dpi; 1080x2106; samsung; SM-S908U; b0q; qcom; en_US;430370695)",
+                          "session_hash": null,
+                          "browser_width": null,
+                          "browser_height": null,
+                          "accept_language": "en-US"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DefaultError"
+                },
+                "examples": {
+                  "response": {
+                    "value": {
+                      "type": "ValidationError",
+                      "detail": {
+                        "external_checkout_id": [
+                          "external_checkout_id is required"
+                        ]
+                      },
+                      "fallback_message": "external_checkout_id:  is required"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "429": {
+            "description": "Rate Limit Exceeded"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Checkout"
+              }
+            }
+          },
+          "description": "Checkout Payload",
+          "required": true
+        }
+      }
+    },
+    "/v1/orders": {
+      "post": {
+        "tags": [
+          "Order"
+        ],
+        "summary": "Create Order",
+        "description": "Use this endpoint to create a order at ShopAgain.",
+        "operationId": "contact",
+        "security": [
+          {
+            "api_key": []
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Order"
+                },
+                "examples": {
+                  "response": {
+                    "value": {
+                      "id": "0cc053b4-f785-4c98-b132-df2482d6e76f",
+                      "external_order_id": "6756",
+                      "external_customer_id": "John",
+                      "external_product_ids": [
+                        "1234"
+                      ],
+                      "item_count": 1,
+                      "cart_token": "123",
+                      "checkout_token": "123",
+                      "total_price": "100.0000",
+                      "subtotal_price": "100.0000",
+                      "total_discounts": "10.0000",
+                      "total_tax": "10.0000",
+                      "current_total_price": "100.0000",
+                      "current_subtotal_price": "100.0000",
+                      "current_total_discounts": "10.0000",
+                      "current_total_tax": "10.0000",
+                      "currency": "USD",
+                      "shipping_cost": 20,
+                      "total_weight": 20,
+                      "is_discounted": true,
+                      "discount_codes": [
+                        "10OFF"
+                      ],
+                      "fulfillment_status": "fulfilled",
+                      "order_status": "placed",
+                      "channel": "web",
+                      "payment_method": "stripe, google pay etc.",
+                      "order_status_url": "https://myawesomestore.com/checkouts/1234",
+                      "tracking_urls": [
+                        "https://usps.com/tracking/13421"
+                      ],
+                      "tags": [
+                        "purchase"
+                      ],
+                      "created_at": "2022-06-27T12:48:27Z",
+                      "updated_at": "2022-06-27T12:48:27Z",
+                      "cancelled_at": "2022-06-27T12:48:27Z",
+                      "extra_fields": {
+                        "line_items": [
+                          {
+                            "sku": "",
+                            "title": "Product1",
+                            "price": 3.5,
+                            "quantity": 1,
+                            "product_id": "1234",
+                            "variant_id": "5678",
+                            "total_discount": 0
+                          }
+                        ],
+                        "client_details": {
+                          "browser_ip": "174.192.64.64",
+                          "user_agent": "Mozilla/5.0 (Linux; Android 13; SM-S908U Build/TP1A.220624.014; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/108.0.5359.128 Mobile Safari/537.36 Instagram 264.0.0.22.106 Android (33/13; 450dpi; 1080x2106; samsung; SM-S908U; b0q; qcom; en_US;430370695)",
+                          "session_hash": null,
+                          "browser_width": null,
+                          "browser_height": null,
+                          "accept_language": "en-US"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DefaultError"
+                },
+                "examples": {
+                  "response": {
+                    "value": {
+                      "type": "ValidationError",
+                      "detail": {
+                        "external_order_id": [
+                          "external_order_id is required"
+                        ]
+                      },
+                      "fallback_message": "external_order_id:  is required"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "429": {
+            "description": "Rate Limit Exceeded"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Order"
+              }
+            }
+          },
+          "description": "Order Payload",
+          "required": true
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "api_key": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "api_key"
+      }
+    },
+    "schemas": {
+      "Company": {
+        "type": "object",
+        "title": "Company",
+        "properties": {
+          "name": {
+            "description": "Name of Company",
+            "type": "string",
+            "examples": [
+              "My awesome store"
+            ]
+          },
+          "website_url": {
+            "description": "URL of the store",
+            "type": "string",
+            "examples": [
+              "https://myawesomestore.com"
+            ]
+          },
+          "address1": {
+            "description": "Address1",
+            "type": "string",
+            "examples": [
+              "10 Awesome St"
+            ]
+          },
+          "address2": {
+            "description": "Address2",
+            "type": "string",
+            "examples": [
+              null
+            ]
+          },
+          "city": {
+            "description": "City",
+            "type": "string",
+            "examples": [
+              "Durham"
+            ]
+          },
+          "province": {
+            "description": "City",
+            "type": "string",
+            "examples": [
+              "NC"
+            ]
+          },
+          "country": {
+            "description": "Country",
+            "type": "string",
+            "examples": [
+              "United States"
+            ]
+          },
+          "country_code": {
+            "description": "ISO-3166 ALPHA-2 country code",
+            "type": "string",
+            "examples": [
+              "US"
+            ]
+          },
+          "email": {
+            "description": "Company contact email",
+            "type": "string",
+            "examples": [
+              "info@myawesomestore.com"
+            ]
+          },
+          "phone": {
+            "description": "Company phone number",
+            "type": "string",
+            "examples": [
+              "+19998887777"
+            ]
+          },
+          "currency": {
+            "description": "Three letter currency code",
+            "type": "string",
+            "examples": [
+              "USD"
+            ]
+          },
+          "timezone": {
+            "description": "pytz support timezone",
+            "type": "string",
+            "examples": [
+              "US/Eastern"
+            ]
+          },
+          "api_key": {
+            "description": "api key to fetch store data, create discount codes etc",
+            "type": "string",
+            "examples": [
+              "secret_api_key"
+            ]
+          }
+        },
+        "required": [
+          "name",
+          "website_url",
+          "address1",
+          "city",
+          "state",
+          "country",
+          "country_code",
+          "email",
+          "currency",
+          "timezone",
+          "api_key"
+        ]
+      },
+      "Product": {
+        "type": "object",
+        "title": "Product",
+        "properties": {
+          "external_product_id": {
+            "description": "Product id on the store website (shopify or woocommerce product id)",
+            "type": "string",
+            "examples": [
+              "123"
+            ]
+          },
+          "name": {
+            "description": "Name of the product",
+            "type": "string",
+            "examples": [
+              "Shoe 1"
+            ]
+          },
+          "description": {
+            "description": "Description as text with no html tags (this field is used in email campaigns)",
+            "type": "string",
+            "examples": [
+              "A great pair of black sneakers suitable for every day use"
+            ]
+          },
+          "description_html": {
+            "description": "Description may contain html tags (field is not necessary)",
+            "type": "string",
+            "examples": [
+              "A great pair of <b>black sneakers</b> suitable for every day use"
+            ]
+          },
+          "handle": {
+            "description": "Unique identifier in the url of the product page. if product page is /products/shoe-1, handle would be shoe-1",
+            "type": "string",
+            "examples": [
+              "shoe-1"
+            ]
+          },
+          "url": {
+            "description": "Product url",
+            "type": "string",
+            "examples": [
+              "https://myawesomestore.com/products/shoe-1"
+            ]
+          },
+          "vendor": {
+            "description": "Name of the vendor",
+            "type": "string",
+            "examples": [
+              "Great Sneaker Company"
+            ]
+          },
+          "price": {
+            "description": "Price of the product",
+            "type": "float",
+            "examples": [
+              32
+            ]
+          },
+          "currency": {
+            "description": "Three letter currency code",
+            "type": "string",
+            "examples": [
+              "USD"
+            ]
+          },
+          "image_urls": {
+            "description": "List of urls of the product images",
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "examples": [
+              [
+                "https://somecdn.com/image/image1.jpg"
+              ]
+            ]
+          },
+          "video_urls": {
+            "description": "List of urls of the product videos",
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "examples": [
+              [
+                "https://somecdn.com/image/video1.mp4"
+              ]
+            ]
+          },
+          "variants": {
+            "description": "Variants of the product. See eaxample for the details",
+            "type": "object",
+            "examples": [
+              [
+                {
+                  "id": "45033930391856",
+                  "sku": "",
+                  "grams": 0,
+                  "price": "32.00",
+                  "title": "S",
+                  "weight": 0,
+                  "barcode": "",
+                  "option1": "S",
+                  "option2": null,
+                  "option3": null,
+                  "taxable": true,
+                  "image_id": null,
+                  "position": 1,
+                  "created_at": "2023-04-30T19:39:04-04:00",
+                  "product_id": "8311391813936",
+                  "updated_at": "2023-04-30T19:39:04-04:00",
+                  "weight_unit": "lb",
+                  "compare_at_price": null,
+                  "inventory_policy": "deny",
+                  "inventory_item_id": "47085312868656",
+                  "requires_shipping": true,
+                  "inventory_quantity": 0,
+                  "fulfillment_service": "manual",
+                  "inventory_management": null,
+                  "old_inventory_quantity": 0
+                }
+              ]
+            ]
+          },
+          "status": {
+            "description": "product status",
+            "type": "string",
+            "enum": [
+              "active",
+              "draft",
+              "archived"
+            ],
+            "examples": [
+              "active"
+            ]
+          },
+          "sku": {
+            "description": "List of SKU",
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "examples": [
+              [
+                "1234"
+              ]
+            ]
+          },
+          "tags": {
+            "description": "List of tags",
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "examples": [
+              [
+                "shoe",
+                "black"
+              ]
+            ]
+          },
+          "created_at": {
+            "description": "The date and time (ISO 8601 format) when the product was created.",
+            "type": "string",
+            "examples": [
+              "2022-06-27T08:48:27-04:00"
+            ]
+          },
+          "updated_at": {
+            "description": "The date and time (ISO 8601 format) when the product was updated.",
+            "type": "string",
+            "examples": [
+              "2022-06-27T08:48:27-04:00"
+            ]
+          }
+        },
+        "required": [
+          "external_product_id",
+          "name",
+          "price",
+          "currency",
+          "created_at",
+          "updated_at"
+        ]
+      },
+      "DefaultError": {
+        "type": "object",
+        "title": "Error",
+        "properties": {
+          "type": {
+            "description": "Type of Error",
+            "type": "string",
+            "examples": [
+              "ValidationError"
+            ]
+          },
+          "detail": {
+            "description": "Details of error",
+            "type": "object",
+            "examples": [
+              {
+                "website_url": [
+                  "This store already exists."
+                ]
+              }
+            ]
+          },
+          "fallback_message": {
+            "description": "Default Error Message",
+            "type": "string",
+            "examples": [
+              "website_url: This store already exists"
+            ]
+          }
+        }
+      },
+      "Contact": {
+        "type": "object",
+        "title": "Contact",
+        "properties": {
+          "external_id": {
+            "description": "Store customer is called contact at ShopAgain",
+            "type": "string",
+            "examples": [
+              "123"
+            ]
+          },
+          "first_name": {
+            "description": "First name of the contact",
+            "type": "string",
+            "examples": [
+              "John"
+            ]
+          },
+          "last_name": {
+            "description": "Last name of the contact",
+            "type": "string",
+            "examples": [
+              "Doe"
+            ]
+          },
+          "email": {
+            "description": "Email. Either email or phone number must be provided.",
+            "type": "string",
+            "examples": "jdoe@somedomain.com"
+          },
+          "phone_number": {
+            "description": "Phone number. Either email or phone number must be provided.",
+            "type": "string",
+            "examples": [
+              "+19998887777"
+            ]
+          },
+          "address_line1": {
+            "description": "Address Line 1",
+            "type": "string",
+            "examples": [
+              "10 Some St."
+            ]
+          },
+          "address_line2": {
+            "description": "Address Line 2",
+            "type": "string",
+            "examples": [
+              "#234"
+            ]
+          },
+          "city": {
+            "description": "City",
+            "type": "string",
+            "examples": [
+              "Miami"
+            ]
+          },
+          "state": {
+            "description": "State",
+            "type": "string",
+            "examples": [
+              "FL"
+            ]
+          },
+          "country": {
+            "description": "Country",
+            "type": "string",
+            "examples": [
+              "United State"
+            ]
+          },
+          "country_code": {
+            "description": "ALPHA2 Country code",
+            "type": "string",
+            "examples": [
+              "US"
+            ]
+          },
+          "video_urls": {
+            "description": "List of urls of the product videos",
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "examples": [
+              [
+                "https://somecdn.com/image/video1.mp4"
+              ]
+            ]
+          },
+          "zip_code": {
+            "description": "ZIP Code",
+            "type": "string",
+            "examples": [
+              "22776"
+            ]
+          },
+          "email_subscription_status": {
+            "description": "Email subscription status",
+            "type": "string",
+            "enum": [
+              "subscribed",
+              "not_subscribed",
+              "unsubscribed"
+            ],
+            "examples": [
+              "subscribed"
+            ]
+          },
+          "email_subscription_date": {
+            "description": "The date and time (ISO 8601 format) when the user subscribed to email.",
+            "type": "string",
+            "examples": [
+              "2022-06-27T08:48:27-04:00"
+            ]
+          },
+          "sms_subscription_status": {
+            "description": "SMS subscription status. Same field is used for whatsapp subscription.",
+            "type": "string",
+            "enum": [
+              "subscribed",
+              "not_subscribed",
+              "unsubscribed"
+            ],
+            "examples": [
+              "subscribed"
+            ]
+          },
+          "sms_subscription_date": {
+            "description": "The date and time (ISO 8601 format) when the user subscribed to SMS.",
+            "type": "string",
+            "examples": [
+              "2022-06-27T08:48:27-04:00"
+            ]
+          },
+          "marketing_opt_in_level": {
+            "description": "Email opt in level",
+            "type": "string",
+            "enum": [
+              "single_opt_in",
+              "confirmed_opt_in",
+              "unknown"
+            ],
+            "examples": [
+              "single_opt_in"
+            ]
+          },
+          "sms_opt_in_level": {
+            "description": "SMS opt in level",
+            "type": "string",
+            "enum": [
+              "single_opt_in",
+              "confirmed_opt_in",
+              "unknown"
+            ],
+            "examples": [
+              "single_opt_in"
+            ]
+          },
+          "created_at": {
+            "description": "The date and time (ISO 8601 format) when the product was created.",
+            "type": "string",
+            "examples": [
+              "2022-06-27T08:48:27-04:00"
+            ]
+          },
+          "updated_at": {
+            "description": "The date and time (ISO 8601 format) when the product was updated.",
+            "type": "string",
+            "examples": [
+              "2022-06-27T08:48:27-04:00"
+            ]
+          }
+        },
+        "required": [
+          "external_id",
+          "created_at",
+          "updated_at"
+        ]
+      },
+      "ProductCollection": {
+        "type": "object",
+        "title": "Product Collection",
+        "properties": {
+          "external_collection_id": {
+            "description": "Product collection id on the store website (shopify or woocommerce product id)",
+            "type": "string",
+            "examples": [
+              "123"
+            ]
+          },
+          "external_product_ids": {
+            "description": "List of external product ids in the collection",
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "examples": [
+              [
+                "1234"
+              ]
+            ]
+          },
+          "title": {
+            "description": "Title of the product collection",
+            "type": "string",
+            "examples": [
+              "Shoes"
+            ]
+          },
+          "description": {
+            "description": "Description of the product collection",
+            "type": "string",
+            "examples": [
+              "A great collection of shoes"
+            ]
+          },
+          "handle": {
+            "description": "Unique identifier in the url of the product page. if product page is /collections/shoes, handle would be shoes",
+            "type": "string",
+            "examples": [
+              "shoes"
+            ]
+          },
+          "collection_type": {
+            "description": "Custom or Smart",
+            "type": "string",
+            "enum": [
+              "custom",
+              "smart"
+            ],
+            "examples": [
+              "custom"
+            ]
+          },
+          "image_url": {
+            "description": "Image for the collection",
+            "type": "string",
+            "examples": [
+              "https://somecdn.com/image/image1.jpg"
+            ]
+          },
+          "updated_at": {
+            "description": "The date and time (ISO 8601 format) when the product was updated.",
+            "type": "string",
+            "examples": [
+              "2022-06-27T08:48:27-04:00"
+            ]
+          },
+          "published_at": {
+            "description": "The date and time (ISO 8601 format) when the product was created.",
+            "type": "string",
+            "examples": [
+              "2022-06-27T08:48:27-04:00"
+            ]
+          }
+        },
+        "required": [
+          "external_collection_id",
+          "title",
+          "updated_at"
+        ]
+      },
+      "Cart": {
+        "type": "object",
+        "title": "Cart",
+        "properties": {
+          "cart_token": {
+            "description": "Token or identifier for a cart",
+            "type": "string",
+            "examples": [
+              "123"
+            ]
+          },
+          "external_customer_id": {
+            "description": "Customer id at store associated with cart",
+            "type": "string",
+            "examples": [
+              "John"
+            ]
+          },
+          "external_product_ids": {
+            "description": "List of store product ids added to the cart",
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "examples": [
+              [
+                "1234"
+              ]
+            ]
+          },
+          "line_items": {
+            "description": "Items in the cart. Contains details of product, variant and quantity",
+            "type": "array",
+            "items": {
+              "type": "object"
+            },
+            "examples": [
+              [
+                {
+                  "sku": "",
+                  "title": "Product1",
+                  "price": 3.5,
+                  "quantity": 1,
+                  "product_id": "1234",
+                  "variant_id": "5678",
+                  "total_discount": 0
+                }
+              ]
+            ]
+          },
+          "created_at": {
+            "description": "The date and time (ISO 8601 format) when the cart was created.",
+            "type": "string",
+            "examples": [
+              "2022-06-27T08:48:27-04:00"
+            ]
+          },
+          "updated_at": {
+            "description": "The date and time (ISO 8601 format) when the cart was updated.",
+            "type": "string",
+            "examples": [
+              "2022-06-27T08:48:27-04:00"
+            ]
+          }
+        },
+        "required": [
+          "external_id",
+          "created_at",
+          "updated_at"
+        ]
+      },
+      "Checkout": {
+        "type": "object",
+        "title": "Checkout",
+        "properties": {
+          "external_checkout_id": {
+            "description": "Store identifier for checkout",
+            "type": "string",
+            "examples": [
+              "6756"
+            ]
+          },
+          "checkout_token": {
+            "description": "Checkout token if used",
+            "type": "string",
+            "examples": [
+              "123"
+            ]
+          },
+          "cart_token": {
+            "description": "Cart token associated with checkout",
+            "type": "string",
+            "examples": [
+              "123"
+            ]
+          },
+          "external_customer_id": {
+            "description": "Customer id at store associated with cart",
+            "type": "string",
+            "examples": [
+              "John"
+            ]
+          },
+          "external_product_ids": {
+            "description": "List of store product ids added to the cart",
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "examples": [
+              [
+                "1234"
+              ]
+            ]
+          },
+          "item_count": {
+            "description": "Count of items in the checkout",
+            "type": "integer",
+            "examples": [
+              1
+            ]
+          },
+          "total_price": {
+            "description": "Count of items in the checkout",
+            "type": "float",
+            "examples": [
+              100
+            ]
+          },
+          "total_tax": {
+            "description": "Tax",
+            "type": "float",
+            "examples": [
+              10
+            ]
+          },
+          "total_weight": {
+            "description": "Weight",
+            "type": "float",
+            "examples": [
+              20
+            ]
+          },
+          "currency": {
+            "description": "Three letter currency code",
+            "type": "string",
+            "examples": [
+              "USD"
+            ]
+          },
+          "abandoned_checkout_url": {
+            "description": "URL to recover an abanoned checkout",
+            "type": "string",
+            "examples": [
+              "https://myawesomestore.com/checkouts/1234"
+            ]
+          },
+          "is_discounted": {
+            "description": "Has any discoun code been applied",
+            "type": "bool",
+            "examples": [
+              true
+            ]
+          },
+          "discount_codes": {
+            "description": "List of discount codes used",
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "examples": [
+              [
+                "10OFF"
+              ]
+            ]
+          },
+          "total_discounts": {
+            "description": "Total discount given",
+            "type": "float",
+            "examples": [
+              10
+            ]
+          },
+          "channel": {
+            "description": "Channel where checkout was initiated",
+            "type": "string",
+            "enum": [
+              "web",
+              "pos",
+              "iphone",
+              "android"
+            ],
+            "examples": [
+              "web"
+            ]
+          },
+          "tags": {
+            "description": "Tags",
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "examples": [
+              [
+                "purchase"
+              ]
+            ]
+          },
+          "extra_fields": {
+            "description": "Items in the cart and browser or client metadata.",
+            "type": "array",
+            "items": {
+              "type": "object"
+            },
+            "examples": [
+              {
+                "line_items": [
+                  {
+                    "sku": "",
+                    "title": "Product1",
+                    "price": 3.5,
+                    "quantity": 1,
+                    "product_id": "1234",
+                    "variant_id": "5678",
+                    "total_discount": 0
+                  }
+                ],
+                "client_details": {
+                  "browser_ip": "174.192.64.64",
+                  "user_agent": "Mozilla/5.0 (Linux; Android 13; SM-S908U Build/TP1A.220624.014; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/108.0.5359.128 Mobile Safari/537.36 Instagram 264.0.0.22.106 Android (33/13; 450dpi; 1080x2106; samsung; SM-S908U; b0q; qcom; en_US;430370695)",
+                  "session_hash": null,
+                  "browser_width": null,
+                  "browser_height": null,
+                  "accept_language": "en-US"
+                }
+              }
+            ]
+          },
+          "created_at": {
+            "description": "The date and time (ISO 8601 format) when the checkout was created.",
+            "type": "string",
+            "examples": [
+              "2022-06-27T08:48:27-04:00"
+            ]
+          },
+          "updated_at": {
+            "description": "The date and time (ISO 8601 format) when the checkout was updated.",
+            "type": "string",
+            "examples": [
+              "2022-06-27T08:48:27-04:00"
+            ]
+          },
+          "completed_at": {
+            "description": "The date and time (ISO 8601 format) when the checkout was completed.",
+            "type": "string",
+            "examples": [
+              "2022-06-27T08:48:27-04:00"
+            ]
+          },
+          "closed_at": {
+            "description": "The date and time (ISO 8601 format) when the checkout was closed, usually a timeout date when checkout gets automatically closed.",
+            "type": "string",
+            "examples": [
+              "2022-06-27T08:48:27-04:00"
+            ]
+          }
+        },
+        "required": [
+          "external_checkout_id",
+          "external_customer_id",
+          "external_product_ids",
+          "item_count",
+          "total_price",
+          "currency",
+          "abandoned_checkout_url",
+          "extra_fields",
+          "created_at",
+          "updated_at"
+        ]
+      },
+      "Order": {
+        "type": "object",
+        "title": "Order",
+        "properties": {
+          "external_order_id": {
+            "description": "Store identifier for order",
+            "type": "string",
+            "examples": [
+              "6756"
+            ]
+          },
+          "external_customer_id": {
+            "description": "Customer id at store associated with cart",
+            "type": "string",
+            "examples": [
+              "John"
+            ]
+          },
+          "external_product_ids": {
+            "description": "List of store product ids added to the cart",
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "examples": [
+              [
+                "1234"
+              ]
+            ]
+          },
+          "checkout_token": {
+            "description": "Checkout token if used",
+            "type": "string",
+            "examples": [
+              "123"
+            ]
+          },
+          "cart_token": {
+            "description": "Cart token associated with checkout",
+            "type": "string",
+            "examples": [
+              "123"
+            ]
+          },
+          "item_count": {
+            "description": "Count of items in the checkout",
+            "type": "integer",
+            "examples": [
+              1
+            ]
+          },
+          "total_price": {
+            "description": "Count of items in the checkout",
+            "type": "float",
+            "examples": [
+              100
+            ]
+          },
+          "subtotal_price": {
+            "description": "Count of items in the checkout",
+            "type": "float",
+            "examples": [
+              100
+            ]
+          },
+          "total_discounts": {
+            "description": "Total discount given",
+            "type": "float",
+            "examples": [
+              10
+            ]
+          },
+          "total_tax": {
+            "description": "Tax",
+            "type": "float",
+            "examples": [
+              10
+            ]
+          },
+          "current_total_price": {
+            "description": "Total price after returns or partial cancellations",
+            "type": "float",
+            "examples": [
+              100
+            ]
+          },
+          "current_subtotal_price": {
+            "description": "Sub total price after returns or partial cancellations",
+            "type": "float",
+            "examples": [
+              100
+            ]
+          },
+          "current_total_discounts": {
+            "description": "Current Total discount given after returns or cancellations",
+            "type": "float",
+            "examples": [
+              10
+            ]
+          },
+          "current_total_tax": {
+            "description": "Current Tax after returns or cancellations",
+            "type": "float",
+            "examples": [
+              10
+            ]
+          },
+          "shipping_cost": {
+            "description": "Shipping cost",
+            "type": "float",
+            "examples": [
+              20
+            ]
+          },
+          "total_weight": {
+            "description": "Weight",
+            "type": "float",
+            "examples": [
+              20
+            ]
+          },
+          "currency": {
+            "description": "Three letter currency code",
+            "type": "string",
+            "examples": [
+              "USD"
+            ]
+          },
+          "is_discounted": {
+            "description": "Has any discoun code been applied",
+            "type": "bool",
+            "examples": [
+              true
+            ]
+          },
+          "discount_codes": {
+            "description": "List of discount codes used",
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "examples": [
+              [
+                "10OFF"
+              ]
+            ]
+          },
+          "fulfillment_status": {
+            "description": "Channel where checkout was initiated",
+            "type": "string",
+            "enum": [
+              "fulfilled",
+              "restocked",
+              "partial"
+            ],
+            "examples": [
+              "fulfilled"
+            ]
+          },
+          "order_status": {
+            "description": "Channel where checkout was initiated",
+            "type": "string",
+            "enum": [
+              "placed",
+              "cancelled",
+              "fulfilled",
+              "refunded"
+            ],
+            "examples": [
+              "placed"
+            ]
+          },
+          "channel": {
+            "description": "Channel where checkout was initiated",
+            "type": "string",
+            "enum": [
+              "web",
+              "pos",
+              "iphone",
+              "android"
+            ],
+            "examples": [
+              "web"
+            ]
+          },
+          "payment_method": {
+            "description": "Method of payment",
+            "type": "string",
+            "examples": [
+              "stripe, google pay etc."
+            ]
+          },
+          "order_status_url": {
+            "description": "URL to recover an abanoned checkout",
+            "type": "string",
+            "examples": [
+              "https://myawesomestore.com/checkouts/1234"
+            ]
+          },
+          "tracking_urls": {
+            "description": "List of tracking urls",
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "examples": [
+              [
+                "https://usps.com/tracking/13421"
+              ]
+            ]
+          },
+          "tags": {
+            "description": "Tags",
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "examples": [
+              [
+                "purchase"
+              ]
+            ]
+          },
+          "extra_fields": {
+            "description": "Items in the cart and browser or client metadata.",
+            "type": "array",
+            "items": {
+              "type": "object"
+            },
+            "examples": [
+              {
+                "line_items": [
+                  {
+                    "sku": "",
+                    "title": "Product1",
+                    "price": 3.5,
+                    "quantity": 1,
+                    "product_id": "1234",
+                    "variant_id": "5678",
+                    "total_discount": 0
+                  }
+                ],
+                "client_details": {
+                  "browser_ip": "174.192.64.64",
+                  "user_agent": "Mozilla/5.0 (Linux; Android 13; SM-S908U Build/TP1A.220624.014; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/108.0.5359.128 Mobile Safari/537.36 Instagram 264.0.0.22.106 Android (33/13; 450dpi; 1080x2106; samsung; SM-S908U; b0q; qcom; en_US;430370695)",
+                  "session_hash": null,
+                  "browser_width": null,
+                  "browser_height": null,
+                  "accept_language": "en-US"
+                }
+              }
+            ]
+          },
+          "created_at": {
+            "description": "The date and time (ISO 8601 format) when the checkout was created.",
+            "type": "string",
+            "examples": [
+              "2022-06-27T08:48:27-04:00"
+            ]
+          },
+          "updated_at": {
+            "description": "The date and time (ISO 8601 format) when the checkout was updated.",
+            "type": "string",
+            "examples": [
+              "2022-06-27T08:48:27-04:00"
+            ]
+          },
+          "cancelled_at": {
+            "description": "The date and time (ISO 8601 format) when the checkout was completed.",
+            "type": "string",
+            "examples": [
+              "2022-06-27T08:48:27-04:00"
+            ]
+          }
+        },
+        "required": [
+          "external_order_id",
+          "external_customer_id",
+          "external_product_ids",
+          "item_count",
+          "total_price",
+          "currency",
+          "fulfillment_status",
+          "order_status",
+          "channel",
+          "created_at",
+          "updated_at",
+          "extra_fields"
+        ]
+      }
+    }
+  }
+}

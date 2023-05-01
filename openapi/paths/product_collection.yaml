@@ -2,7 +2,7 @@ post:
   tags:
     - Product Collection
   summary: Create Product Collection
-  description: Use this endpoint to crate a product collection at ShopAgain.
+  description: Use this endpoint to create a product collection at ShopAgain.
   operationId: product_collection
   security:
     - api_key: []

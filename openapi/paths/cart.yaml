@@ -1,0 +1,40 @@
+post:
+  tags:
+    - Cart
+  summary: Create Cart
+  description: Use this endpoint to create a cart at ShopAgain.
+  operationId: contact
+  security:
+    - api_key: []
+  responses:
+    '201':
+      description: Created
+      content:
+        application/json:
+          schema:
+            $ref: '../components/schemas/Cart.yaml'
+          examples:
+            response:
+              value: {"id":"5e8255a3-7557-4400-8d24-ce6b2cd92ffd","cart_token":"123","external_customer_id":"John","external_product_ids":["1234"],"line_items":[{"sku":"","title":"Product1","price":3.5,"quantity":1,"product_id":"1234","variant_id":"5678","total_discount":0}],"created_at":"2022-06-27T12:48:27Z","updated_at":"2022-06-27T12:48:27Z"}
+    '400': 
+      description: Bad Data
+      content:
+        application/json:
+          schema:
+            $ref: '../components/schemas/DefaultError.yaml'
+          examples:
+            response:
+              value: {"type":"ValidationError","detail":{"cart_token":["cart_token is required"]},"fallback_message":"cart_token:  is required"}
+    '401': 
+      description: Unauthorized
+    '429': 
+      description: Rate Limit Exceeded
+
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: ../components/schemas/Cart.yaml
+      
+    description: Cart Payload
+    required: true

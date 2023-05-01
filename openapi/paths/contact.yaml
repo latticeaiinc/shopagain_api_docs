@@ -2,7 +2,7 @@ post:
   tags:
     - Contact
   summary: Create Contact
-  description: Use this endpoint to crate a contact at ShopAgain.
+  description: Use this endpoint to create a contact at ShopAgain.
   operationId: contact
   security:
     - api_key: []

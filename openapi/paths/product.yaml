@@ -2,7 +2,7 @@ post:
   tags:
     - Product
   summary: Create Product
-  description: Use this endpoint to crate a product at ShopAgain.
+  description: Use this endpoint to create a product at ShopAgain.
   operationId: product
   security:
     - api_key: []

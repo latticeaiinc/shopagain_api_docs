@@ -1,0 +1,182 @@
+type: object
+title: Order
+properties:
+  external_order_id:
+    description: Store identifier for order
+    type: string
+    examples:
+      - "6756"
+  external_customer_id:
+    description: Customer id at store associated with cart
+    type: string
+    examples:
+      - John
+  external_product_ids:
+    description: List of store product ids added to the cart
+    type: array
+    items:
+      type: string
+    examples:
+      - ["1234"]
+  checkout_token:
+    description: Checkout token if used
+    type: string
+    examples:
+      - "123"
+  cart_token:
+    description: Cart token associated with checkout
+    type: string
+    examples:
+      - "123"
+  item_count:
+    description: Count of items in the checkout
+    type: integer
+    examples:
+      - 1
+  total_price:
+    description: Count of items in the checkout
+    type: float
+    examples:
+      - 100.00
+  subtotal_price:
+    description: Count of items in the checkout
+    type: float
+    examples:
+      - 100.00
+  total_discounts:
+    description: Total discount given
+    type: float
+    examples:
+      - 10.00
+  total_tax:
+    description: Tax
+    type: float
+    examples:
+      - 10.00
+  current_total_price:
+    description: Total price after returns or partial cancellations
+    type: float
+    examples:
+      - 100.00
+  current_subtotal_price:
+    description: Sub total price after returns or partial cancellations
+    type: float
+    examples:
+      - 100.00
+  current_total_discounts:
+    description: Current Total discount given after returns or cancellations
+    type: float
+    examples:
+      - 10.00
+  current_total_tax:
+    description: Current Tax after returns or cancellations
+    type: float
+    examples:
+      - 10.00
+  shipping_cost:
+    description: Shipping cost
+    type: float
+    examples:
+      - 20.00
+  total_weight:
+    description: Weight
+    type: float
+    examples:
+      - 20.00
+  currency:
+    description: Three letter currency code
+    type: string
+    examples:
+      - USD
+  is_discounted:
+    description: Has any discoun code been applied
+    type: bool
+    examples:
+      - true
+  discount_codes:
+    description: List of discount codes used
+    type: array
+    items:
+      type: string
+    examples:
+      - ["10OFF"]
+  
+  fulfillment_status:
+    description: Channel where checkout was initiated
+    type: string
+    enum: ['fulfilled', 'restocked', 'partial']
+    examples:
+      - fulfilled
+  order_status:
+    description: Channel where checkout was initiated
+    type: string
+    enum: ['placed', 'cancelled', 'fulfilled', 'refunded']
+    examples:
+      - placed
+  channel:
+    description: Channel where checkout was initiated
+    type: string
+    enum: ['web', 'pos', 'iphone', 'android']
+    examples:
+      - web
+  payment_method:
+    description: Method of payment
+    type: string
+    examples:
+      - stripe, google pay etc.
+  order_status_url:
+    description: URL to recover an abanoned checkout
+    type: string
+    examples:
+      - https://myawesomestore.com/checkouts/1234
+  tracking_urls:
+    description: List of tracking urls
+    type: array
+    items:
+      type: string
+    examples:
+      - ["https://usps.com/tracking/13421"]
+  tags:
+    description: Tags
+    type: array
+    items:
+      type: string
+    examples:
+      - ["purchase"]
+  extra_fields:
+    description: Items in the cart and browser or client metadata.
+    type: array
+    items:
+      type: object
+    examples:
+      - {"line_items": [{"sku":"","title":"Product1","price":3.50,"quantity":1,"product_id":"1234","variant_id":"5678","total_discount":0.0}], "client_details":{"browser_ip":"174.192.64.64","user_agent":"Mozilla/5.0 (Linux; Android 13; SM-S908U Build/TP1A.220624.014; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/108.0.5359.128 Mobile Safari/537.36 Instagram 264.0.0.22.106 Android (33/13; 450dpi; 1080x2106; samsung; SM-S908U; b0q; qcom; en_US;430370695)","session_hash":null,"browser_width":null,"browser_height":null,"accept_language":"en-US"}}
+  created_at:
+    description: The date and time (ISO 8601 format) when the checkout was created.
+    type: string
+    examples:
+      - "2022-06-27T08:48:27-04:00"
+  updated_at:
+    description: The date and time (ISO 8601 format) when the checkout was updated.
+    type: string
+    examples:
+      - "2022-06-27T08:48:27-04:00"
+  cancelled_at:
+    description: The date and time (ISO 8601 format) when the checkout was completed.
+    type: string
+    examples:
+      - "2022-06-27T08:48:27-04:00"
+
+required:
+  - external_order_id
+  - external_customer_id
+  - external_product_ids
+  - item_count
+  - total_price
+  - currency
+  - fulfillment_status
+  - order_status
+  - channel
+  - created_at
+  - updated_at
+  - extra_fields
+

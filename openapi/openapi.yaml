@@ -37,6 +37,15 @@ paths:
   
   '/v1/collections':
     $ref: 'paths/product_collection.yaml'
+  
+  '/v1/carts':
+    $ref: 'paths/cart.yaml'
+  
+  '/v1/checkouts':
+    $ref: 'paths/checkout.yaml'
+
+  '/v1/orders':
+    $ref: 'paths/order.yaml'
 
 components:
   securitySchemes:

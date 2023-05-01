@@ -1,0 +1,40 @@
+post:
+  tags:
+    - Product Collection
+  summary: Create Product Collection
+  description: Use this endpoint to crate a product collection at ShopAgain.
+  operationId: product_collection
+  security:
+    - api_key: []
+  responses:
+    '201':
+      description: Created
+      content:
+        application/json:
+          schema:
+            $ref: '../components/schemas/ProductCollection.yaml'
+          examples:
+            response:
+              value: {"id":"e712f582-3678-4dc5-848a-fa65b62d6034","external_collection_id":"123","external_product_ids":["1234"],"title":"Shoes","description":"A great collection of shoes","handle":"shoes","collection_type":"custom","sort_order":null,"image_url":"https://somecdn.com/image/image1.jpg","updated_at":"2022-06-27T12:48:27Z","published_at":"2022-06-27T12:48:27Z"}
+    '400': 
+      description: Bad Data
+      content:
+        application/json:
+          schema:
+            $ref: '../components/schemas/DefaultError.yaml'
+          examples:
+            response:
+              value: {"type":"ValidationError","detail":{"external_collection_id":["external_collection_id is required"]},"fallback_message":"external_collection_id:  is required"}
+    '401': 
+      description: Unauthorized
+    '429': 
+      description: Rate Limit Exceeded
+
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: ../components/schemas/ProductCollection.yaml
+      
+    description: Company Payload
+    required: true

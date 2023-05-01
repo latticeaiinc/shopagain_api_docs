@@ -5,7 +5,7 @@ properties:
     description: Name of Company
     type: string
     examples:
-      - My aweseme store
+      - My awesome store
   website_url:
     description: URL of the store
     type: string

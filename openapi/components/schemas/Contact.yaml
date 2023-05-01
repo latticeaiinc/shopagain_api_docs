@@ -1,0 +1,121 @@
+type: object
+title: Contact
+properties:
+  external_id:
+    description: Store customer is called contact at ShopAgain
+    type: string
+    examples:
+      - "123"
+  first_name:
+    description: First name of the contact
+    type: string
+    examples:
+      - John
+  last_name:
+    description: Last name of the contact
+    type: string
+    examples:
+      - Doe
+  email:
+    description: Email. Either email or phone number must be provided.
+    type: string
+    examples:
+      "jdoe@somedomain.com"
+  phone_number:
+    description: Phone number. Either email or phone number must be provided.
+    type: string
+    examples:
+      - "+19998887777"
+  address_line1:
+    description: Address Line 1
+    type: string
+    examples:
+      - "10 Some St."
+  address_line2:
+    description: Address Line 2
+    type: string
+    examples:
+      - "#234"
+  city:
+    description: City
+    type: string
+    examples:
+      - Miami
+  state:
+    description: State
+    type: string
+    examples:
+      - FL
+  country:
+    description: Country
+    type: string
+    examples:
+      - United State
+  country_code:
+    description: ALPHA2 Country code
+    type: string
+    examples:
+      - US
+  video_urls:
+    description: List of urls of the product videos
+    type: array
+    items:
+      type: string
+    examples:
+      - ["https://somecdn.com/image/video1.mp4"]
+  
+  zip_code:
+    description: ZIP Code
+    type: string
+    examples:
+      - "22776"
+  email_subscription_status:
+    description: Email subscription status
+    type: string
+    enum: ['subscribed', 'not_subscribed', 'unsubscribed']
+    examples:
+      - subscribed
+  email_subscription_date:
+    description: The date and time (ISO 8601 format) when the user subscribed to email.
+    type: string
+    examples:
+      - "2022-06-27T08:48:27-04:00"
+  sms_subscription_status:
+    description: SMS subscription status. Same field is used for whatsapp subscription.
+    type: string
+    enum: ['subscribed', 'not_subscribed', 'unsubscribed']
+    examples:
+      - subscribed
+  sms_subscription_date:
+    description: The date and time (ISO 8601 format) when the user subscribed to SMS.
+    type: string
+    examples:
+      - "2022-06-27T08:48:27-04:00"
+  marketing_opt_in_level:
+    description: Email opt in level
+    type: string
+    enum: ['single_opt_in', 'confirmed_opt_in', 'unknown']
+    examples:
+      - single_opt_in
+  sms_opt_in_level:
+    description: SMS opt in level
+    type: string
+    enum: ['single_opt_in', 'confirmed_opt_in', 'unknown']
+    examples:
+      - single_opt_in
+  created_at:
+    description: The date and time (ISO 8601 format) when the product was created.
+    type: string
+    examples:
+      - "2022-06-27T08:48:27-04:00"
+  updated_at:
+    description: The date and time (ISO 8601 format) when the product was updated.
+    type: string
+    examples:
+      - "2022-06-27T08:48:27-04:00"
+
+required:
+  - external_id
+  - created_at
+  - updated_at
+

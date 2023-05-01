@@ -1,0 +1,40 @@
+post:
+  tags:
+    - Product
+  summary: Create Product
+  description: Use this endpoint to crate a product at ShopAgain.
+  operationId: product
+  security:
+    - api_key: []
+  responses:
+    '201':
+      description: Created
+      content:
+        application/json:
+          schema:
+            $ref: '../components/schemas/Company.yaml'
+          examples:
+            response:
+              value: {"id":"8fb7ed17-b176-474b-9e18-b539ca8bf4c4","external_product_id":"123","name":"Shoe 1","description":"A great pair of black sneakers suitable for every day use","description_html":"A great pair of <b>black sneakers</b> suitable for every day use","handle":"shoe-1","vendor":"Great Sneaker Company","price":32.0,"currency":"USD","url":"https://myawesomestore.com/products/shoe-1","image_urls":["https://somecdn.com/image/image1.jpg"],"video_urls":["https://somecdn.com/image/video1.mp4"],"variants":[{"id":"45033930391856","sku":"1234","grams":0,"price":32.0,"title":"S","weight":0,"barcode":"","option1":"S","option2":null,"option3":null,"taxable":true,"image_id":null,"position":1,"created_at":"2023-04-30T19:39:04-04:00","product_id":"8311391813936","updated_at":"2023-04-30T19:39:04-04:00","weight_unit":"lb","compare_at_price":null,"inventory_policy":"deny","inventory_item_id":"47085312868656","requires_shipping":true,"inventory_quantity":0,"fulfillment_service":"manual","inventory_management":null,"old_inventory_quantity":0}],"status":"active","sku":["1234"],"tags":["shoe","black"],"created_at":"2022-06-27T12:48:27Z","updated_at":"2022-06-27T12:48:27Z"}
+    '400': 
+      description: Bad Data
+      content:
+        application/json:
+          schema:
+            $ref: '../components/schemas/DefaultError.yaml'
+          examples:
+            response:
+              value: {"type":"ValidationError","detail":{"external_product_id":["external_product_id is required"]},"fallback_message":"external_product_id:  is required"}
+    '401': 
+      description: Unauthorized
+    '429': 
+      description: Rate Limit Exceeded
+
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: ../components/schemas/Product.yaml
+      
+    description: Company Payload
+    required: true

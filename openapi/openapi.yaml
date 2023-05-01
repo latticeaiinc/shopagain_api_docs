@@ -11,23 +11,32 @@ info:
   description:
     $ref: ./info-description.md
 
-# tags:
-#   - name: Customers
-#     description: Company setup on ShopAgain
-#   - name: User
-#     description: Operations about users.
-#   - name: Tag
-#     description: This is a tag description.
+tags:
+  - name: Company
+    description: Company setup on ShopAgain
+  - name: Contact
+    description: Create contact at ShopAgain
+  - name: Product
+    description: Products play a very important role at ShopAgain. We use them for recommeding new products in Email and SMS Campaigns and even in the widgets,
 
 servers:
   - url: 'https://api.shopagain.io'
     description: Production API
-  - url: 'https://prod-webhooks.latticeai.io'
-    description: Production Webhooks
+  # - url: 'https://prod-webhooks.latticeai.io'
+  #   description: Production Webhooks
     
 paths:
   '/v1/company':
     $ref: 'paths/company.yaml'
+  
+  '/v1/contacts':
+    $ref: 'paths/contact.yaml'
+  
+  '/v1/products':
+    $ref: 'paths/product.yaml'
+  
+  '/v1/collections':
+    $ref: 'paths/product_collection.yaml'
 
 components:
   securitySchemes:

@@ -8,11 +8,11 @@ post:
     - api_key: []
   responses:
     '201':
-      description: Created1
+      description: Created
       content:
         application/json:
           schema:
-            $ref: '../components/schemas/Company.yaml'
+            $ref: '../components/schemas/Product.yaml'
           examples:
             response:
               value: {"id":"c00118c0-xxxx-yyyy-86f8-f963785818f1","name":"My awesome store","website_url":"https://myawesomestore.com","email":"info@myawesomestore.com","address1":"10 Awesome St","country":"United States","country_code":"US","city":"Durham","province":"NC","currency":"USD","timezone":"US/Eastern","created_at":"2023-04-27T00:40:09.338114Z","address2":null,"phone":"+19998887777","zip":null,"logo":null,"public_api_key":"aaaa_aaaa","api_key":"xxxx-yyyy"}

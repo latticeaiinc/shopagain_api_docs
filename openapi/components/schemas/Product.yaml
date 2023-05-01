@@ -1,0 +1,108 @@
+type: object
+title: Product
+properties:
+  external_product_id:
+    description: Product id on the store website (shopify or woocommerce product id)
+    type: string
+    examples:
+      - "123"
+  name:
+    description: Name of the product
+    type: string
+    examples:
+      - Shoe 1
+  description:
+    description: Description as text with no html tags (this field is used in email campaigns)
+    type: string
+    examples:
+      - A great pair of black sneakers suitable for every day use
+  description_html:
+    description: Description may contain html tags (field is not necessary)
+    type: string
+    examples:
+      - A great pair of <b>black sneakers</b> suitable for every day use
+  handle:
+    description: Unique identifier in the url of the product page. if product page is /products/shoe-1, handle would be shoe-1
+    type: string
+    examples:
+      - shoe-1
+  url:
+    description: Product url
+    type: string
+    examples:
+      - https://myawesomestore.com/products/shoe-1
+  vendor:
+    description: Name of the vendor
+    type: string
+    examples:
+      - Great Sneaker Company
+  price:
+    description: Price of the product
+    type: float
+    examples:
+      - 32.00
+  currency:
+    description: Three letter currency code
+    type: string
+    examples:
+      - USD
+  image_urls:
+    description: List of urls of the product images
+    type: array
+    items:
+      type: string
+    examples:
+      - ["https://somecdn.com/image/image1.jpg"]
+  video_urls:
+    description: List of urls of the product videos
+    type: array
+    items:
+      type: string
+    examples:
+      - ["https://somecdn.com/image/video1.mp4"]
+  
+  variants:
+    description: Variants of the product. See eaxample for the details
+    type: object
+    examples:
+      - [{"id":"45033930391856","sku":"","grams":0,"price":"32.00","title":"S","weight":0.0,"barcode":"","option1":"S","option2":null,"option3":null,"taxable":true,"image_id":null,"position":1,"created_at":"2023-04-30T19:39:04-04:00","product_id":"8311391813936","updated_at":"2023-04-30T19:39:04-04:00","weight_unit":"lb","compare_at_price":null,"inventory_policy":"deny","inventory_item_id":"47085312868656","requires_shipping":true,"inventory_quantity":0,"fulfillment_service":"manual","inventory_management":null,"old_inventory_quantity":0}]
+  status:
+    description: product status 
+    type: string
+    enum: ["active", "draft", "archived"]
+    examples:
+      - active
+  sku:
+    description: List of SKU 
+    type: array
+    items:
+      type: string
+    examples:
+      - ["1234"]
+  tags:
+    description: List of tags
+    type: array
+    items:
+      type: string
+    examples:
+      - ["shoe", "black"]
+  created_at:
+    description: The date and time (ISO 8601 format) when the product was created.
+    type: string
+    examples:
+      - "2022-06-27T08:48:27-04:00"
+  updated_at:
+    description: The date and time (ISO 8601 format) when the product was updated.
+    type: string
+    examples:
+      - "2022-06-27T08:48:27-04:00"
+  
+
+required:
+  - external_product_id
+  - name
+  - price
+  - currency
+  - created_at
+  - updated_at
+

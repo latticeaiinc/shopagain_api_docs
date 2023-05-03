@@ -1,6 +1,6 @@
 post:
   tags:
-    - Contact
+    - contact
   summary: Create Contact
   description: Use this endpoint to create a contact at ShopAgain.
   operationId: contact

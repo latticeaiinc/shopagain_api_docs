@@ -1,6 +1,6 @@
 post:
   tags:
-    - Cart
+    - cart
   summary: Create Cart
   description: Use this endpoint to create a cart at ShopAgain.
   operationId: contact

@@ -1,6 +1,6 @@
 post:
   tags:
-    - Order
+    - order
   summary: Create Order
   description: Use this endpoint to create a order at ShopAgain.
   operationId: contact

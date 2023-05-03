@@ -1,6 +1,6 @@
 post:
   tags:
-    - Product
+    - product
   summary: Create Product
   description: Use this endpoint to create a product at ShopAgain.
   operationId: product

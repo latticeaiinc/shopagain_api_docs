@@ -1,6 +1,6 @@
 post:
   tags:
-    - Product Collection
+    - product_collection
   summary: Create Product Collection
   description: Use this endpoint to create a product collection at ShopAgain.
   operationId: product_collection

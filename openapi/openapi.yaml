@@ -12,19 +12,57 @@ info:
     $ref: ./info-description.md
 
 tags:
-  - name: Company
-    description: Company setup on ShopAgain
-  - name: Contact
-    description: Create contact at ShopAgain
-  - name: Product
-    description: Products play a very important role at ShopAgain. We use them for recommeding new products in Email and SMS Campaigns and even in the widgets,
+  - name: product
+    description: All operations related to products.
+    x-displayName: Product
+  - name: product_collection
+    x-displayName: Product Collection
+    description: All operations related Product Collection
+  - name: contact
+    x-displayName: Contact
+    description: All operations related to contact
+  - name: cart
+    x-displayName: Cart
+    description: Cart
+  - name: checkout
+    x-displayName: Checkout
+    description: Checkout
+  - name: order
+    x-displayName: Order
+    description: Order
+  - name: company
+    x-displayName: Company
+    description:  Only **ShopAgain Partners** have access to this api.
+  - name: webhook
+    x-displayName: Webhook
+    description:  Webhook operations.
+  # - name: Contact
+  #   description: Create contact at ShopAgain
+  # - name: Product
+  #   description: Products play a very important role at ShopAgain. We use them for recommeding new products in Email and SMS Campaigns and even in the widgets,
 
 servers:
   - url: 'https://api.shopagain.io'
     description: Production API
-  # - url: 'https://prod-webhooks.latticeai.io'
+  # - url: 'https://webhooks.shopagain.io'
   #   description: Production Webhooks
-    
+
+x-tagGroups:
+  - name: Store Data
+    tags:
+      - product
+      - product_collection
+      - contact
+      - cart
+      - checkout
+      - order
+  - name: Company
+    tags:
+      - company
+  - name: Webhook
+    tags:
+      - webhook
+
 paths:
   '/v1/company':
     $ref: 'paths/company.yaml'
@@ -46,6 +84,9 @@ paths:
 
   '/v1/orders':
     $ref: 'paths/order.yaml'
+
+  /v1/store_data:
+    $ref: 'paths/webhook.yaml'
 
 components:
   securitySchemes:

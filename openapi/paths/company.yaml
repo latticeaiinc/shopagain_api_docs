@@ -1,8 +1,8 @@
 post:
   tags:
-    - Company
-  summary: Provisioning a new company
-  description: Only partners are allowed to programmatically create a new company.
+    - company
+  summary: Create company
+  description: Allows you to programatically create company on ShopAgain
   operationId: company
   security:
     - api_key: []

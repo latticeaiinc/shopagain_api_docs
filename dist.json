@@ -11,20 +11,48 @@
     "x-logo": {
       "url": "https://d3scu3ol8c909k.cloudfront.net/assets/images/8c76b40d-2c27-4bca-b0c4-b78b71a2eb30/45008215-b5d4-4e4e-a718-0ad4e8d31114.png"
     },
-    "description": "# Introduction\n\nThis API is used for interacting with ShopAgain by third party apps. For authentication you need an `API Key` which can be obtained from the company.\n\n# Authentication\n\npass\n\n# Webhooks\n"
+    "description": "# Introduction\n\nUse these APIs to programmatically interact with ShopAgain. Under the hood, ShopAgain has a `company` corresponding to your ecommerce store (Shopify, WooCommerce or Omnibus). Each company has two api keys - `public_api_key` that is used within your javascript code and a `api_key` that is used for accessing these API described here. Your `api_key` is private and should never be shared with anyone.\n\nPlease contact support to access these keys.\n\nAPI Endpoint: https://api.shopagain.io/\nWebhook Endpoint https://webhooks.shopagain.io/\n\n# Authentication\n\nTo use ShopAgain obtain `api_key` for your company and then add to your request in headers as `api-key: <your api key here>`.\n\nHere is an example api call to create a product collection\n\n```\ncurl -XPOST https://api.shopagain.io/v1/product_collections -H \"api-key: <api_key>\" -H \"content-type:application/json\" -d '{\"external_collection_id\":\"123\",\"external_product_ids\":[\"1234\"],\"title\":\"Shoes\",\"description\":\"A great collection of shoes\",\"handle\":\"shoes\",\"collection_type\":\"custom\",\"image_url\":\"https://somecdn.com/image/image1.jpg\",\"updated_at\":\"2022-06-27T08:48:27-04:00\",\"published_at\":\"2022-06-27T08:48:27-04:00\"}'\n```\n\nWe only accept `content-type: application/json` for all the requests and return json responses unless we encounter some error.\n\n# Status Codes and Error handling\n\nWe use relevant HTTP codes for processing your request. HTTP `200` and `201` are success status code and anything else is a failure. Usually you will receive a `201 - Created` on HTTP Post but we can queue the request and send `200 - OK` and `{\"success\": true, \"message\": \"queued\"}` as message when we are experiencing high loads. You should retry any failed requests\n\nIf you receive a HTTP `429 - Too many requests` you should reduce the number of api calls that you are making.\n\n# Guideline for syncing data with ShopAgain\n\nUse the relevant HTTP endpoints to make post requests to sync data for customer, orders or product, etc. Currently HTTP post requests dont generate campaign events, so we recommend using them for only initial data sync. We are evaluating the use of the APIs and this behavior may be changed later.\n\nOnce your data is synced on install, we recommend using webhooks with proper event types to send data. \n\nHTTP calls are rate-limited to 10 requests/minute.\n\n# Webhooks\n\nWebhooks allows us to queue your data and process them efficiently. There are no rate limits and our apis are generally more resilient to downtime. Webhooks allows you to send various different updates on state changes. For example, an `order` can go through several update like `create`, `fulfillled`, `updated`, `cancelled`, you can send all these updates with correct event names so that we can store them and trigger relevant `automation campaigns`.\n\nWe do not rate limit webhook calls.\n\nValid event_types:\n\n`carts/create`, `carts/update`, `checkouts/create`, `checkouts/update`, `checkouts/delete`,\n `contacts/create`, `contacts/update`, `contacts/delete`, `contacts/enable`, `contacts/disable`,\n `orders/cancelled`, `orders/create`, `orders/edited`, `orders/fulfilled`, `orders/paid`, `orders/partially_fulfilled`, `orders/updated`, `orders/delete`, `products/create`, `products/update`, `products/delete`,  `refunds/create`, `collections/create`, `collections/delete`, `collections/update`\n\n`store_domain` must match the configured detail in company.\n\nYou need to send a metadata alongwith every request:\n\n```\n{\n  \"metadata\": {\n    \"version\": \"1\",\n    \"webhook_topic\": \"products/create\",\n    \"store_domain\": \"myawesomestore.com\",\n    \"event_id\": \"123\"\n  },\n  \"payload\": {\n    \"name\": \"test1\",\n    \"external_product_id\": \"1205\",\n    \"price\": 10.0,\n    \"currency\": \"USD\",\n    \"created_at\": \"2023-04-29T21:44:34+00:00\",\n    \"updated_at\": \"2023-04-29T21:45:34+00:00\",\n    \"variants\": [\n      {\n        \"price\": 5.0\n      }\n    ]\n  }\n}\n```"
   },
   "tags": [
     {
-      "name": "Company",
-      "description": "Company setup on ShopAgain"
+      "name": "product",
+      "description": "All operations related to products.",
+      "x-displayName": "Product"
     },
     {
-      "name": "Contact",
-      "description": "Create contact at ShopAgain"
+      "name": "product_collection",
+      "x-displayName": "Product Collection",
+      "description": "All operations related Product Collection"
     },
     {
-      "name": "Product",
-      "description": "Products play a very important role at ShopAgain. We use them for recommeding new products in Email and SMS Campaigns and even in the widgets,"
+      "name": "contact",
+      "x-displayName": "Contact",
+      "description": "All operations related to contact"
+    },
+    {
+      "name": "cart",
+      "x-displayName": "Cart",
+      "description": "Cart"
+    },
+    {
+      "name": "checkout",
+      "x-displayName": "Checkout",
+      "description": "Checkout"
+    },
+    {
+      "name": "order",
+      "x-displayName": "Order",
+      "description": "Order"
+    },
+    {
+      "name": "company",
+      "x-displayName": "Company",
+      "description": "Only **ShopAgain Partners** have access to this api."
+    },
+    {
+      "name": "webhook",
+      "x-displayName": "Webhook",
+      "description": "Webhook operations."
     }
   ],
   "servers": [
@@ -33,14 +61,39 @@
       "description": "Production API"
     }
   ],
+  "x-tagGroups": [
+    {
+      "name": "Store Data",
+      "tags": [
+        "product",
+        "product_collection",
+        "contact",
+        "cart",
+        "checkout",
+        "order"
+      ]
+    },
+    {
+      "name": "Company",
+      "tags": [
+        "company"
+      ]
+    },
+    {
+      "name": "Webhook",
+      "tags": [
+        "webhook"
+      ]
+    }
+  ],
   "paths": {
     "/v1/company": {
       "post": {
         "tags": [
-          "Company"
+          "company"
         ],
-        "summary": "Provisioning a new company",
-        "description": "Only partners are allowed to programmatically create a new company.",
+        "summary": "Create company",
+        "description": "Allows you to programatically create company on ShopAgain",
         "operationId": "company",
         "security": [
           {
@@ -128,7 +181,7 @@
     "/v1/contacts": {
       "post": {
         "tags": [
-          "Contact"
+          "contact"
         ],
         "summary": "Create Contact",
         "description": "Use this endpoint to create a contact at ShopAgain.",
@@ -222,7 +275,7 @@
     "/v1/products": {
       "post": {
         "tags": [
-          "Product"
+          "product"
         ],
         "summary": "Create Product",
         "description": "Use this endpoint to create a product at ShopAgain.",
@@ -350,7 +403,7 @@
     "/v1/collections": {
       "post": {
         "tags": [
-          "Product Collection"
+          "product_collection"
         ],
         "summary": "Create Product Collection",
         "description": "Use this endpoint to create a product collection at ShopAgain.",
@@ -436,7 +489,7 @@
     "/v1/carts": {
       "post": {
         "tags": [
-          "Cart"
+          "cart"
         ],
         "summary": "Create Cart",
         "description": "Use this endpoint to create a cart at ShopAgain.",
@@ -528,7 +581,7 @@
     "/v1/checkouts": {
       "post": {
         "tags": [
-          "Checkout"
+          "checkout"
         ],
         "summary": "Create Checkout",
         "description": "Use this endpoint to create a cart at ShopAgain.",
@@ -650,7 +703,7 @@
     "/v1/orders": {
       "post": {
         "tags": [
-          "Order"
+          "order"
         ],
         "summary": "Create Order",
         "description": "Use this endpoint to create a order at ShopAgain.",
@@ -775,6 +828,83 @@
             }
           },
           "description": "Order Payload",
+          "required": true
+        }
+      }
+    },
+    "/v1/store_data": {
+      "post": {
+        "tags": [
+          "webhook"
+        ],
+        "summary": "Post webhook",
+        "description": "Use this endpoint to post webhook data.",
+        "operationId": "webhook",
+        "security": [
+          {
+            "api_key": []
+          }
+        ],
+        "servers": [
+          {
+            "url": "https://webhooks.shopagain.io",
+            "description": "Production Webhooks"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Webhook"
+                },
+                "examples": {
+                  "response": {
+                    "value": {
+                      "success": true,
+                      "message": "queued"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DefaultError"
+                },
+                "examples": {
+                  "response": {
+                    "value": {
+                      "success": false,
+                      "type": "ValidationError",
+                      "message": "metadata is required"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "429": {
+            "description": "Rate Limit Exceeded"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Webhook"
+              }
+            }
+          },
+          "description": "Company Payload",
           "required": true
         }
       }
@@ -1949,6 +2079,47 @@
           "created_at",
           "updated_at",
           "extra_fields"
+        ]
+      },
+      "Webhook": {
+        "type": "object",
+        "title": "Webhook",
+        "properties": {
+          "metadata": {
+            "description": "Metadata",
+            "type": "object",
+            "examples": [
+              {
+                "version": "1",
+                "webhook_topic": "products/create",
+                "store_domain": "myawesomestore.com",
+                "event_id": "123"
+              }
+            ]
+          },
+          "payload": {
+            "description": "Payload of the object",
+            "type": "object",
+            "examples": [
+              {
+                "name": "test1",
+                "external_product_id": "1205",
+                "price": 10,
+                "currency": "USD",
+                "created_at": "2023-04-29T21:44:34+00:00",
+                "updated_at": "2023-04-29T21:45:34+00:00",
+                "variants": [
+                  {
+                    "price": 5
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        "required": [
+          "metadata",
+          "payload"
         ]
       }
     }

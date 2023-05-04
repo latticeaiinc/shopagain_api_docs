@@ -9,6 +9,7 @@ rules:
 theme:
   openapi:
     htmlTemplate: ./docs/index.html
+    hideDownloadButton: true
     theme:
       colors:
         primary:

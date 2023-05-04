@@ -74,15 +74,15 @@
       ]
     },
     {
-      "name": "Company",
-      "tags": [
-        "company"
-      ]
-    },
-    {
       "name": "Webhook",
       "tags": [
         "webhook"
+      ]
+    },
+    {
+      "name": "Partners",
+      "tags": [
+        "company"
       ]
     }
   ],

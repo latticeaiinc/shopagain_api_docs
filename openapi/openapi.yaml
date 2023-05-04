@@ -56,12 +56,12 @@ x-tagGroups:
       - cart
       - checkout
       - order
-  - name: Company
-    tags:
-      - company
   - name: Webhook
     tags:
       - webhook
+  - name: Partners
+    tags:
+      - company
 
 paths:
   '/v1/company':

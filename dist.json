@@ -1420,6 +1420,13 @@
             "examples": [
               "2022-06-27T08:48:27-04:00"
             ]
+          },
+          "list_id": {
+            "description": "List id (UUID) to add this user to",
+            "type": "string",
+            "examples": [
+              "6d17a618-3e2d-4b03-91ab-1225722dd101"
+            ]
           }
         },
         "required": [

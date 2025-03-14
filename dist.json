@@ -649,6 +649,16 @@
                           "browser_width": null,
                           "browser_height": null,
                           "accept_language": "en-US"
+                        },
+                        "customer_details": {
+                          "email": "customer@example.com",
+                          "first_name": "John",
+                          "last_name": "Doe",
+                          "mobile": "+1234567890",
+                          "email_subscription_status": "subscribed",
+                          "email_subscription_date": "2022-06-27T12:48:27Z",
+                          "sms_subscription_status": "not_subscribed",
+                          "sms_subscription_date": "2022-06-27T12:48:27Z"
                         }
                       }
                     }
@@ -1615,7 +1625,7 @@
             ]
           },
           "external_customer_id": {
-            "description": "Customer id at store associated with cart",
+            "description": "Customer id at the store associated with the cart. Required if email or mobile is not provided.",
             "type": "string",
             "examples": [
               "John"
@@ -1752,6 +1762,16 @@
                   "browser_width": null,
                   "browser_height": null,
                   "accept_language": "en-US"
+                },
+                "customer_details": {
+                  "email": "customer@example.com",
+                  "first_name": "John",
+                  "last_name": "Doe",
+                  "mobile": "+1234567890",
+                  "email_subscription_status": "subscribed",
+                  "email_subscription_date": "2022-06-27T12:48:27Z",
+                  "sms_subscription_status": "not_subscribed",
+                  "sms_subscription_date": "2022-06-27T12:48:27Z"
                 }
               }
             ]

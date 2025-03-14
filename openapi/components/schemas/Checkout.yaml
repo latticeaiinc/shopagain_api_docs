@@ -17,7 +17,7 @@ properties:
     examples:
       - "123"
   external_customer_id:
-    description: Customer id at store associated with cart
+    description: Customer id at the store associated with the cart. Required if email or mobile is not provided.
     type: string
     examples:
       - John
@@ -94,7 +94,7 @@ properties:
     items:
       type: object
     examples:
-      - {"line_items": [{"sku":"","title":"Product1","price":3.50,"quantity":1,"product_id":"1234","variant_id":"5678","total_discount":0.0}], "client_details":{"browser_ip":"174.192.64.64","user_agent":"Mozilla/5.0 (Linux; Android 13; SM-S908U Build/TP1A.220624.014; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/108.0.5359.128 Mobile Safari/537.36 Instagram 264.0.0.22.106 Android (33/13; 450dpi; 1080x2106; samsung; SM-S908U; b0q; qcom; en_US;430370695)","session_hash":null,"browser_width":null,"browser_height":null,"accept_language":"en-US"}}
+      - {"line_items": [{"sku":"","title":"Product1","price":3.50,"quantity":1,"product_id":"1234","variant_id":"5678","total_discount":0.0}], "client_details":{"browser_ip":"174.192.64.64","user_agent":"Mozilla/5.0 (Linux; Android 13; SM-S908U Build/TP1A.220624.014; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/108.0.5359.128 Mobile Safari/537.36 Instagram 264.0.0.22.106 Android (33/13; 450dpi; 1080x2106; samsung; SM-S908U; b0q; qcom; en_US;430370695)","session_hash":null,"browser_width":null,"browser_height":null,"accept_language":"en-US"},"customer_details":{"email":"customer@example.com","first_name":"John","last_name":"Doe","mobile":"+1234567890","email_subscription_status":"subscribed","email_subscription_date":"2022-06-27T12:48:27Z","sms_subscription_status":"not_subscribed","sms_subscription_date":"2022-06-27T12:48:27Z"}}
   created_at:
     description: The date and time (ISO 8601 format) when the checkout was created.
     type: string
